@@ -58,7 +58,7 @@ public class GameGUI extends JFrame {
 							
 							if(getWinner().equals(""))
 							{
-								int move = ai.makeMove(gameBoard);
+								int move = ai.makeMove(gameBoard, turn);
 								gameBoard.placeMove(move, turn);
 								turn++;
 							}else
@@ -229,6 +229,12 @@ public class GameGUI extends JFrame {
 			else if(xCount == MATRIX)
 				return "X";
 			
-			return "";
+			for(int i = 0; i < tiles.size(); i++)
+			{
+				if(tiles.get(i).getText().equals(""))
+					return "";
+			}
+			
+			return "Draw";
 		}
 }

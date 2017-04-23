@@ -5,7 +5,7 @@ public class EasyAi extends AI{
 	
 	
 	@Override
-	public int makeMove(GameBoard gameBoard) {
+	public int makeMove(GameBoard gameBoard, int turn) {
 		
 		int  move = rand.nextInt(24);
 		while(gameBoard.validMove(move))
