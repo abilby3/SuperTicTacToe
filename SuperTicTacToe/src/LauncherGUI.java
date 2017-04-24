@@ -46,12 +46,17 @@ public class LauncherGUI extends JFrame {
 		final JButton btnConnect = new JButton("Connect");
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				 
 				SwingUtilities.invokeLater(new Runnable() {
 				    public void run() {
 				         new GameGUI("AI vs AI", comboBox.getSelectedItem().toString());
+				         
 				    }
+				     
 				});
+				
+				
+				
 				dispose();
 				getContentPane().setVisible(false);
 				
@@ -85,6 +90,7 @@ public class LauncherGUI extends JFrame {
 				txtAddress.setVisible(true);
 				lblOpponents.setVisible(true);
 				btnConnect.setVisible(true);
+				
 			}
 		});
 		btnAI.setBounds(89, 143, 104, 39);
