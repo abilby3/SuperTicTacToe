@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+
 public class Node {
 
 	GameBoard gameBoard;
@@ -7,7 +9,7 @@ public class Node {
 	
 	public Node(GameBoard gameBoard)
 	{
-		this.gameBoard = gameBoard;
+		this.gameBoard = gameBoard.clone();
 		children = new ArrayList<>();
 	}
 
@@ -17,5 +19,16 @@ public class Node {
 	
 	public ArrayList<Node> getChildren(){
 		return children;
+	}
+	
+	public void setChildren(ArrayList<Node> children){
+		this.children = children;
+	}
+	
+	public Node clone(){
+		Node newNode = new Node(gameBoard);
+		newNode.setChildren(this.children);
+		
+		return newNode;
 	}
 }
