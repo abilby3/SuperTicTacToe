@@ -151,5 +151,116 @@ public class GameBoard {
 		return "Draw";
 	}
 	
+	public int evaluate(){
+		int score = 0;
+		
+		score += evaluateLine( 0, 1, 2, 3, 4);
+		score += evaluateLine( 5, 6, 7, 8, 9);
+		score += evaluateLine( 10, 11, 12, 13, 14);
+		score += evaluateLine( 15, 16, 17, 18, 19);
+		score += evaluateLine( 20, 21, 22, 23, 24);
+		score += evaluateLine( 0, 5, 10, 15, 20);
+		score += evaluateLine( 1, 6, 11, 16, 21);
+		score += evaluateLine( 2, 7, 12, 17, 22);
+		score += evaluateLine( 3, 8, 13, 18, 23);
+		score += evaluateLine( 4, 9, 14, 19, 24);
+		score += evaluateLine( 0, 6, 12, 18, 24);
+		score += evaluateLine( 4, 8, 12, 16, 20);
+		
+		
+		return score;
+	}
+	
+	public int evaluateLine(int pos1, int pos2, int pos3, int pos4, int pos5){
+		int score =0;
+		/*
+		if(getWinner().equals("O")){
+			score = -100000;
+		} else if(getWinner().equals("X")){
+			score = 100000;
+		}
+		*/
+		
+		if(tiles.get(pos1).getText().equals("X")){
+			score = 1;
+		} else if (tiles.get(pos1).getText().equals("O")){
+			score = -1;
+		}
+		
+		if(tiles.get(pos2).getText().equals("X")){
+			if(score == 1){
+				score = 10;
+			} else if(score == -1){
+				return 0;
+			} else if(score == 0){
+				score = 1;
+			}
+		} else if (tiles.get(pos2).getText().equals("O")){
+			if(score == -1){
+				score = -10;
+			} else if(score == 1){
+				return 0;
+			} else if(score == 0){
+				score = -1;
+			}
+		}
+		
+		if(tiles.get(pos3).getText().equals("X")){
+			if(score > 0){
+				score *= 10;
+			} else if(score < 0){
+				return 0;
+			} else if(score == 0){
+				score = 1;
+			} 
+		} else if (tiles.get(pos3).getText().equals("O")){
+			if(score < 0){
+				score *= 10;
+			} else if(score > 0){
+				return 0;
+			} else if(score == 0){
+				score = -1;
+			}
+		}
+		
+		if(tiles.get(pos4).getText().equals("X")){
+			if(score > 0){
+				score *= 10;
+			} else if(score < 0){
+				return 0;
+			} else if(score == 0){
+				score = 1;
+			} 
+		} else if (tiles.get(pos4).getText().equals("O")){
+			if(score < 0){
+				score *= 10;
+			} else if(score > 0){
+				return 0;
+			} else if(score == 0){
+				score = -1;
+			}
+		}
+		
+		if(tiles.get(pos5).getText().equals("X")){
+			if(score > 0){
+				score *= 10;
+			} else if(score < 0){
+				return 0;
+			} else if(score == 0){
+				score = 1;
+			} 
+		} else if (tiles.get(pos5).getText().equals("O")){
+			if(score < 0){
+				score *= 10;
+			} else if(score > 0){
+				return 0;
+			} else if(score == 0){
+				score = -1;
+			}
+		}
+		
+		return score;
+	}
+	
 
 }
