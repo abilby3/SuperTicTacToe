@@ -6,6 +6,11 @@ public class Node {
 
 	GameBoard gameBoard;
 	ArrayList<Node> children;
+	private int score;
+	
+	public Node(){
+		
+	}
 	
 	public Node(GameBoard gameBoard)
 	{
@@ -28,7 +33,16 @@ public class Node {
 	public Node clone(){
 		Node newNode = new Node(gameBoard);
 		newNode.setChildren(this.children);
+		newNode.setScore(score);
 		
 		return newNode;
+	}
+	
+	public void setScore(int score){
+		this.score = score;
+	}
+	
+	public int getScore(){
+		return this.score;
 	}
 }

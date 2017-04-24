@@ -15,21 +15,21 @@ public class HardAi extends AI {
 		int depth = 0;
 		populateTree(rootNode, turn, depth);
 		
-		Node bestNode = minimax(rootNode, 3, true);
+		Node bestNode = minimaxStart(rootNode, 3,true);
 		int move = 0;
 		
 		for(int i = 0; i < 25; i++){
-			//if(!(bestNode.getGameBoard().getTiles().get(i).getText().equals(gameBoard.getTiles().get(i).getText()))){
 			String gameString = gameBoard.getTiles().get(i).getText();
 			String bestString = bestNode.getGameBoard().getTiles().get(i).getText();
+			//System.out.println(gameString+ " " + bestString + " " + i);
 			
-			if(!gameString.equals(bestString)){	
-				
+			if(!(gameString.equals(bestString))){	
+				//System.out.println("HI");
 				move = i;
-				break;
+				
 			}
 		}
-		System.out.println(gameBoard.evaluate());
+		//System.out.println(gameBoard.evaluate());
 		
 		
 		return move;
@@ -65,28 +65,42 @@ public class HardAi extends AI {
 	 
 	}
 	
-	public Node minimax(Node startNode, int depth, boolean isAi){
+	public Node minimaxStart(Node startNode, int depth, boolean isAi){
 		Node bestNode = startNode.clone();
+		bestNode.setScore(bestNode.getGameBoard().evaluate());
 		
+		for(Node child : startNode.getChildren()){
+			minimax(child, depth, !isAi);
+			if(child.getScore() > bestNode.getScore()){
+				bestNode = child.clone();
+				System.out.println("HI");
+			}
+		}
+		return bestNode;
+	}
+	
+	public void minimax(Node startNode, int depth,boolean isAi){
 		if(depth == 0 || startNode.getChildren().isEmpty()){
-			return bestNode;
-		}else{
+			startNode.setScore(startNode.getGameBoard().evaluate());
+			return;
+		} else{
 			for(Node child : startNode.getChildren()){
+				
+								
 				if(isAi){
-					bestNode = minimax(bestNode, depth-1, !isAi);
-					if (bestNode.getGameBoard().evaluate() > child.getGameBoard().evaluate()){
-						bestNode = child;
+					minimax(child, depth-1, !isAi);
+					if(child.getGameBoard().evaluate() > startNode.getGameBoard().evaluate()){
+						startNode.setScore(child.getGameBoard().evaluate());
+						//i think this is where im messin up
 					}
 				}else{
-					bestNode = minimax(bestNode, depth-1, !isAi);
-					if (bestNode.getGameBoard().evaluate() < child.getGameBoard().evaluate()){
-						bestNode = child;
+					minimax(child, depth-1, !isAi);
+					if(child.getGameBoard().evaluate() < startNode.getGameBoard().evaluate()){
+						startNode.setScore(child.getGameBoard().evaluate());
+						//as well as here
 					}
 				}
 			}
 		}
-		
-		
-		return bestNode;
 	}
 }
