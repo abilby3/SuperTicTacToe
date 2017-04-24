@@ -31,7 +31,7 @@ public class GameGUI extends JFrame {
 			
 			//Configure GUI
 			setSize(500, 700);
-			setTitle("Super TIC TAC TOE");
+			setTitle("Super TIC TAC TOE:");
 			setVisible(true);
 			 
 			JPanel panel = new JPanel();
@@ -137,9 +137,9 @@ public class GameGUI extends JFrame {
 
 			gameBoard.disableGameBoard();
 			if(winCondition.equals("Draw"))
-				this.setTitle("Draw Game Over!!!");
+				this.setTitle("Super TIC TAC TOE: Draw Game Over!!!");
 			else
-				this.setTitle("The winner is " + winCondition +  "!!!!");
+				this.setTitle("Super TIC TAC TOE: The winner is " + winCondition +  "!!!!");
 			
 		}
 		
@@ -159,6 +159,7 @@ public class GameGUI extends JFrame {
 		public void newGame(){
 			this.setTitle("");
 			turn = 0;
+			this.setTitle("Super TIC TAC TOE:");
 			gameBoard.resetGameBoard();
 		}
 			
