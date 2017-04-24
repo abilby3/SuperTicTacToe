@@ -10,7 +10,6 @@ public class HardAi extends AI {
 	public int makeMove(GameBoard gameBoard, int turn) {
 		
 		//generate tree based on gameBoard
-	 
 		Node rootNode = new Node(gameBoard);
 		int depth = 0;
 		populateTree(rootNode, turn, depth);
@@ -22,25 +21,9 @@ public class HardAi extends AI {
 		
 		System.out.println(counter);
 		counter = 0;
-		//bestNode.getGameBoard();
 		int move = bestNode.getGameBoard().getLastMove();
-		
-/*		for(int i = 0; i < 25; i++){
-			String gameString = gameBoard.getTiles().get(i).getText();
-			String bestString = bestNode.getGameBoard().getTiles().get(i).getText();
-			//System.out.println(gameString+ " " + bestString + " " + i);
-			
-			if(!(gameString.equals(bestString))){	
-				//System.out.println("HI");
-				move = i;
-				
-			}
-		}
-		//System.out.println(gameBoard.evaluate());
-		
-		*/
+		bestNode.getGameBoard().printBoard();
 		return move;
-		
 	}
 	
 	public void populateTree(Node node, int turn, int depth){

@@ -16,8 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class GameGUI extends JFrame {
 
 		public static int turn = 0;
-		private GameBoard gameBoard; 
-		private String playerType; 
+		private GameBoard gameBoard;  
 		private AI ai; 
 		private int MATRIX = 5;
 		
@@ -61,8 +60,8 @@ public class GameGUI extends JFrame {
 								int move = ai.makeMove(gameBoard, turn);
 								gameBoard.placeMove(move, turn);
 								turn++;
-							}else
-								System.out.println(getWinner());
+							}
+							gameOver(getWinner());	
 						}
 					}		
 				});
@@ -82,13 +81,7 @@ public class GameGUI extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					for(JButton jb : gameBoard.getTiles())
-					{
-						jb.setEnabled(true);
-						turn = 0;
-						jb.setText("");
-					}
-					
+					newGame();
 				}
 			});
 			
@@ -100,6 +93,7 @@ public class GameGUI extends JFrame {
 			if(gameType.equals("AI vs AI"))
 			{
 				btnNewGame.setEnabled(false);
+				btnNewGame.setVisible(false);
 			}
 			
 			JButton btnQuit = new JButton("Quit");
@@ -108,6 +102,7 @@ public class GameGUI extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
 					dispose();
 				}
 			});
@@ -134,6 +129,37 @@ public class GameGUI extends JFrame {
 			);
 			panel_1.setLayout(gl_panel_1);
  
+		}
+		
+		public void gameOver(String winCondition){
+			if(winCondition.equals(""))
+				return;
+
+			gameBoard.disableGameBoard();
+			if(winCondition.equals("Draw"))
+				this.setTitle("Draw Game Over!!!");
+			else
+				this.setTitle("The winner is " + winCondition +  "!!!!");
+			
+		}
+		
+		public void enemyeMove(int move){
+			gameBoard.placeMove(move, turn);
+			gameOver(getWinner());
+			turn++;
+		}
+		
+		public int getMove(){
+			int move = ai.makeMove(gameBoard, turn);
+			gameOver(getWinner());
+			turn++;
+			return 0;
+		}
+		
+		public void newGame(){
+			this.setTitle("");
+			turn = 0;
+			gameBoard.resetGameBoard();
 		}
 			
 		public String getWinner(){

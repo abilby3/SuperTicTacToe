@@ -61,6 +61,20 @@ public class GameBoard {
 		return newGameBoard;	
 	}
 	
+	public void disableGameBoard(){
+		for(JButton tile : tiles){
+			tile.setEnabled(false);
+		}
+	}
+	
+	public void resetGameBoard(){
+		for(JButton tile : tiles){
+			tile.setText("");
+			tile.setEnabled(true);
+			setLastMove(0);
+		}
+	}
+	
 	public String getWinner(){
 		
 		int oCount = 0;
