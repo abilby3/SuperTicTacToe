@@ -10,15 +10,22 @@ public class HardAi extends AI {
 	public int makeMove(GameBoard gameBoard, int turn) {
 		
 		//generate tree based on gameBoard
-		
+	 
 		Node rootNode = new Node(gameBoard);
 		int depth = 0;
 		populateTree(rootNode, turn, depth);
+		System.out.println(counter);
+		counter = 0;
+		
 		
 		Node bestNode = minimaxStart(rootNode, 3,true);
-		int move = 0;
 		
-		for(int i = 0; i < 25; i++){
+		System.out.println(counter);
+		counter = 0;
+		//bestNode.getGameBoard();
+		int move = bestNode.getGameBoard().getLastMove();
+		
+/*		for(int i = 0; i < 25; i++){
 			String gameString = gameBoard.getTiles().get(i).getText();
 			String bestString = bestNode.getGameBoard().getTiles().get(i).getText();
 			//System.out.println(gameString+ " " + bestString + " " + i);
@@ -31,21 +38,24 @@ public class HardAi extends AI {
 		}
 		//System.out.println(gameBoard.evaluate());
 		
-		
+		*/
 		return move;
 		
 	}
 	
 	public void populateTree(Node node, int turn, int depth){
 		GameBoard gameBoard = node.getGameBoard();
-		//counter++;
-		//System.out.println(counter);
-		
+		counter++;
+		 
 		//Check Base Case
 		if(depth == 3)
+		{ 
 			return;
+		}
 		else if(gameBoard.getWinner().equals("Draw") || gameBoard.getWinner().equals("X") || gameBoard.getWinner().equals("O"))
-			return;
+		{ 
+			return;	
+		}
 		
 		//Find empty spaces
 		for(int i = 0; i < gameBoard.getTiles().size(); i++){
@@ -67,13 +77,14 @@ public class HardAi extends AI {
 	
 	public Node minimaxStart(Node startNode, int depth, boolean isAi){
 		Node bestNode = startNode.clone();
-		bestNode.setScore(bestNode.getGameBoard().evaluate());
+		//Init node should not have a score because a move has to be made.
+		bestNode.setScore(-100000);
 		
 		for(Node child : startNode.getChildren()){
+			counter++;
 			minimax(child, depth, !isAi);
-			if(child.getScore() > bestNode.getScore()){
+			if(child.getScore() > bestNode.getScore() || bestNode.getScore() == -100000){
 				bestNode = child.clone();
-				System.out.println("HI");
 			}
 		}
 		return bestNode;
@@ -84,6 +95,7 @@ public class HardAi extends AI {
 			startNode.setScore(startNode.getGameBoard().evaluate());
 			return;
 		} else{
+			counter++;
 			for(Node child : startNode.getChildren()){
 				
 								

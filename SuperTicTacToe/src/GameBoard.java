@@ -6,6 +6,7 @@ public class GameBoard {
 
 	private ArrayList<JButton> tiles;
 	final int MATRIX = 5;
+	private int lastMove = 0;
 	public GameBoard(){
 		tiles = new ArrayList<>();
 	}
@@ -27,7 +28,8 @@ public class GameBoard {
 	
 	
 	public void placeMove(int moveIndex, int turn){
-		if(GameGUI.turn % 2 == 0)
+		setLastMove(moveIndex);
+		if(turn % 2 == 0)
 			tiles.get(moveIndex).setText("O");
 		else
 			tiles.get(moveIndex).setText("X");
@@ -36,17 +38,26 @@ public class GameBoard {
 	
 	public void placeMove(JButton tile, int turn){
 		int index = tiles.indexOf(tile);
-		if(GameGUI.turn % 2 == 0)
+		setLastMove(index);
+		if(turn % 2 == 0)
 			tiles.get(index).setText("O");
 		else
 			tiles.get(index).setText("X");
 		tiles.get(index).setEnabled(false);	
 	}
 	
+	public void setLastMove(int lastMove){
+		this.lastMove = lastMove;
+	}
+	public int getLastMove(){
+		return lastMove;
+	}
+	
 	public GameBoard clone(){
 		GameBoard newGameBoard = new GameBoard();
 		for(int i = 0; i < tiles.size(); i++)
 			newGameBoard.getTiles().add(new JButton(tiles.get(i).getText()));
+		newGameBoard.setLastMove(lastMove);
 		return newGameBoard;	
 	}
 	
@@ -149,6 +160,24 @@ public class GameBoard {
 		}
 		
 		return "Draw";
+	}
+	
+	public void printBoard(){
+		int count = 1;
+		for(int i = 0; i < tiles.size(); i++)
+		{
+			if(count == 6)
+			{
+				System.out.println("");
+				count = 1;
+			}
+			if(tiles.get(i ).getText().equals(""))
+				System.out.print("-");
+			else
+				System.out.print(tiles.get(i).getText());
+			count++;
+		}
+		System.out.println("\n");
 	}
 	
 	public int evaluate(){
