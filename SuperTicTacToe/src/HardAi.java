@@ -3,7 +3,7 @@
 public class HardAi extends AI {
 
 	//private Random rand = new Random();
-	
+	private final static int MAX_DEPTH = 2;
 	private static int counter = 0;
 
 	@Override
@@ -18,7 +18,7 @@ public class HardAi extends AI {
 		counter = 0;
 		
 		
-		Node bestNode = minimaxStart(rootNode, 3,true);
+		Node bestNode = minimaxStart(rootNode, 2,true);
 		
 		System.out.println(counter);
 		counter = 0;
@@ -48,7 +48,7 @@ public class HardAi extends AI {
 		counter++;
 		 
 		//Check Base Case
-		if(depth == 3)
+		if(depth == MAX_DEPTH)
 		{ 
 			return;
 		}
