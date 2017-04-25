@@ -108,6 +108,7 @@ public class NetworkHandler implements Runnable {
 					    System.out.println("We have dice!");
 						int dice = dis.readInt();
 						System.out.println("Dice:" + dice);
+					
 						if(dice < 0 || dice > 100)
 						{
 							gameFacade.condition = "win";
@@ -117,7 +118,12 @@ public class NetworkHandler implements Runnable {
 						if(dice < roll)
 						{
 						   localMove(gameFacade.getMove());
-						} 
+						   System.out.println("I won the dice roll!");
+						}
+						else
+						{
+							System.out.println("I won the dice roll!");
+						}
 						
 						//Test if within range
 						
