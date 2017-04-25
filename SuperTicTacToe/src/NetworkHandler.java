@@ -144,7 +144,7 @@ public class NetworkHandler implements Runnable {
 				return;
 			}
 			
-			if(unableToCommunicate == false && dis != null && gameFacade.getLocalTurn() == false)
+			if(unableToCommunicate == false && dis != null)
 			{
 				 try {
 					 
@@ -158,6 +158,7 @@ public class NetworkHandler implements Runnable {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					errors++;
 				} 
 			}
 			
