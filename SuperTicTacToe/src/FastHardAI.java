@@ -1,7 +1,7 @@
 
 public class FastHardAI extends AI {
 	//private Random rand = new Random();
-	private final static int MAX_DEPTH = 3;
+	private final static int MAX_DEPTH = 2;
 	private static int counter = 0;
 
 	@Override
@@ -19,7 +19,7 @@ public class FastHardAI extends AI {
 		counter = 0;
 		
 		Long time3 = System.currentTimeMillis();
-		Node bestNode = minimaxStart(rootNode, 4,true);
+		Node bestNode = minimaxStart(rootNode, 3,true);
 		Long time4 = System.currentTimeMillis();
 		
 		System.out.println("Read time: " + (time4-time3));
