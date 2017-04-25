@@ -1,17 +1,16 @@
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
-import javax.swing.JPanel;
 import java.awt.GridLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import javax.swing.LayoutStyle.ComponentPlacement;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class GameGUI extends JFrame {
 
@@ -24,7 +23,7 @@ public class GameGUI extends JFrame {
 		{
 			//initialize field variables
 			if(AI_Difficulty.equals("Hard"))
-				ai = new HardAi();
+				ai = new ThreadedHardAI();
 			else if(AI_Difficulty.equals("Easy"))
 				ai = new EasyAi();
 			gameBoard = new GameBoard(); 
