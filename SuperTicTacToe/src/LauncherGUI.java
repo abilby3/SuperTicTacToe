@@ -51,9 +51,21 @@ public class  LauncherGUI extends JFrame {
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				NetworkHandler networkHandler = new NetworkHandler(9001, lblOpponents.getText());
+				//GameFacade gameFacade = new GameFacade(); 
+				
 				SwingUtilities.invokeLater(new Runnable() {
 				    public void run() {
-				         new GameGUI("AI vs AI", comboBox.getSelectedItem().toString());
+				         GameGUI gameGui = new GameGUI("AI vs AI", comboBox.getSelectedItem().toString());
+				         while(true)
+				         {
+				        	 if(GameGUI.turn != 0)
+				        	 {
+				        		 //gameGui.localMakeMove();
+				        	 }
+				        	 
+				         }
+				    
 				    }
 				});
 				dispose();
