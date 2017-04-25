@@ -1,6 +1,7 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -8,6 +9,7 @@ import java.net.UnknownHostException;
 public class NetworkHandler implements Runnable {
  
 		private int port = 9001;
+		private final String myIp = "localhost";
 		private String ip = "localhost";
 		private Socket socket;
 		private DataOutputStream dos;
@@ -19,14 +21,23 @@ public class NetworkHandler implements Runnable {
 		private int errors; 
 		
 		
-		public NetworkHandler(int port, String ip, GameFacade gameFacade)
+		public NetworkHandler(int port, String ip)
 		{
 			 this.port = port;
 			 this.ip = ip;
-			 this.gameFacade = gameFacade;
-		    
+			 
+		    if(!connect())
+		    {
+		    	initializeServer();
+		    }
 		}
 
+		public void setGameFacade(GameFacade gameFacade)
+		{
+			this.gameFacade = gameFacade;
+			
+		}
+		
 		private void listenForRequest()
 		{
 		    Socket socket = null;
@@ -46,26 +57,28 @@ public class NetworkHandler implements Runnable {
 			
 		}
 		
-		private boolean Connect(String ip, int port)
-		{
+		private void initializeServer() {
 			try {
-				socket = new Socket(ip, port);
+				serverSocket = new ServerSocket();
+				serverSocket = new ServerSocket(port, 8,InetAddress.getLocalHost());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			 
+		}
+
+		private boolean connect() {
+			try {
+				socket = new Socket(InetAddress.getLocalHost(), port);
 				dos = new DataOutputStream(socket.getOutputStream());
 				dis = new DataInputStream(socket.getInputStream());
 				accepted = true;
-			} catch (UnknownHostException e) {
-				
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return false; 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("Unable to connect to the address: " + ip + ":" + port + " | Starting a server");
 				return false;
 			}
-			
-			return true; 
-				
+			System.out.println("Successfully connected to the server.");
+			return true;
 		}
 		
 		public void update()

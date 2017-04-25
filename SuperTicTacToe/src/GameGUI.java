@@ -131,6 +131,18 @@ public class GameGUI extends JFrame {
  
 		}
 		
+		
+		//To put in run 
+		public void localMakeMove()
+		{
+			if(getWinner().equals(""))
+			{
+				int move = ai.makeMove(gameBoard, turn);
+				gameBoard.placeMove(move, turn);
+				turn++;
+			}
+		}
+		
 		public void gameOver(String winCondition){
 			if(winCondition.equals(""))
 				return;
