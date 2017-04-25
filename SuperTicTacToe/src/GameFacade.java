@@ -32,12 +32,14 @@ public class GameFacade {
 	public void setTurn()
 	{
 		GameGUI.turn++;
+		localFirst = false;
 	}
     
 	public void recieveMove(int move)
 	{
 		gameGui.enemyeMove(move); 
 		GameGUI.turn++;
+		
 		sendMove(gameGui.getMove());
 		
 		
