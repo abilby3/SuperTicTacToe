@@ -16,6 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class GameGUI extends JFrame {
 
 		public static int turn = 0;
+
 		private GameBoard gameBoard;  
 		private AI ai; 
 		private int MATRIX = 5;
