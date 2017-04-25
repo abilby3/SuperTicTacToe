@@ -10,20 +10,19 @@ public class FastHardAI extends AI {
 		//generate tree based on gameBoard
 		Node rootNode = new Node(gameBoard);
 		int depth = 0;
-		/*
 		Long time = System.currentTimeMillis();
 		populateTree(rootNode, turn, depth);
 		Long time2 = System.currentTimeMillis();
-		*/
-		//System.out.println("Pop: " + (time2-time));
+		
+		System.out.println("Populate time: " + (time2-time));
 		//System.out.println(counter);
 		counter = 0;
 		
 		Long time3 = System.currentTimeMillis();
-		Node bestNode = minimaxStart(rootNode, 25,true, turn);
+		Node bestNode = minimaxStart(rootNode, 4,true);
 		Long time4 = System.currentTimeMillis();
 		
-		System.out.println("Pop: " + (time4-time3));
+		System.out.println("Read time: " + (time4-time3));
 		//System.out.println(counter);
 		counter = 0;
 		int move = bestNode.getGameBoard().getLastMove();
@@ -57,22 +56,20 @@ public class FastHardAI extends AI {
 		
 		turn++;
 		depth++;
-		/*
 		for(int i = 0; i < node.getChildren().size(); i++){
 			populateTree(node.getChildren().get(i), turn, depth);
-		}*/
+		}
 	 
 	}
 	
-	public Node minimaxStart(Node startNode, int depth, boolean isAi, int turn){
-		populateTree(startNode, turn, 	MAX_DEPTH-1);
+	public Node minimaxStart(Node startNode, int depth, boolean isAi){
 		Node bestNode = startNode.clone();
 		//Init node should not have a score because a move has to be made.
 		bestNode.setScore(-100000);
 		
 		for(Node child : startNode.getChildren()){
 			counter++;
-			minimax(child, depth, !isAi, -100000, +100000, turn);
+			minimax(child, depth, !isAi, -100000, +100000);
 			if(child.getScore() > bestNode.getScore() || bestNode.getScore() == -100000){
 				bestNode = child.clone();
 			}
@@ -80,20 +77,17 @@ public class FastHardAI extends AI {
 		return bestNode;
 	}
 	
-	public void minimax(Node startNode, int depth,boolean isAi, int alpha, int beta, int turn){
-		turn++;
-		
+	public void minimax(Node startNode, int depth,boolean isAi, int alpha, int beta){
 		if(depth == 0 || startNode.getChildren().isEmpty()){
 			startNode.setScore(startNode.getGameBoard().evaluate());
 			return;
 		} else{
-			populateTree(startNode, turn, 	MAX_DEPTH-1);
 			counter++;
 			for(Node child : startNode.getChildren()){
 				
 								
 				if(isAi){
-					minimax(child, depth-1, !isAi, alpha, beta, turn);
+					minimax(child, depth-1, !isAi, alpha, beta);
 					if(child.getGameBoard().evaluate() > startNode.getGameBoard().evaluate()){
 						if(child.getGameBoard().evaluate() > alpha) alpha = child.getGameBoard().evaluate();
 						if(alpha >= beta) break;
@@ -101,7 +95,7 @@ public class FastHardAI extends AI {
 						
 					}
 				}else{
-					minimax(child, depth-1, !isAi, alpha, beta, turn);
+					minimax(child, depth-1, !isAi, alpha, beta);
 					if(child.getGameBoard().evaluate() < startNode.getGameBoard().evaluate()){
 						if(child.getGameBoard().evaluate() < beta) beta = child.getGameBoard().evaluate();
 						if(alpha >= beta) break;
