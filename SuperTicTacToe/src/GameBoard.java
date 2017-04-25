@@ -224,13 +224,16 @@ public class GameBoard {
 		}
 		*/
 		
-		if(tiles.get(pos1).getText().equals("X")){
+		String aiChar = LauncherGUI.aiChar;
+		String oppChar = LauncherGUI.oppChar;
+		
+		if(tiles.get(pos1).getText().equals(aiChar)){
 			score = 1;
-		} else if (tiles.get(pos1).getText().equals("O")){
+		} else if (tiles.get(pos1).getText().equals(oppChar)){
 			score = -1;
 		}
 		
-		if(tiles.get(pos2).getText().equals("X")){
+		if(tiles.get(pos2).getText().equals(aiChar)){
 			if(score == 1){
 				score = 10;
 			} else if(score == -1){
@@ -238,7 +241,7 @@ public class GameBoard {
 			} else if(score == 0){
 				score = 1;
 			}
-		} else if (tiles.get(pos2).getText().equals("O")){
+		} else if (tiles.get(pos2).getText().equals(oppChar)){
 			if(score == -1){
 				score = -10;
 			} else if(score == 1){
@@ -248,7 +251,7 @@ public class GameBoard {
 			}
 		}
 		
-		if(tiles.get(pos3).getText().equals("X")){
+		if(tiles.get(pos3).getText().equals(aiChar)){
 			if(score > 0){
 				score *= 10;
 			} else if(score < 0){
@@ -256,7 +259,7 @@ public class GameBoard {
 			} else if(score == 0){
 				score = 1;
 			} 
-		} else if (tiles.get(pos3).getText().equals("O")){
+		} else if (tiles.get(pos3).getText().equals(oppChar)){
 			if(score < 0){
 				score *= 10;
 			} else if(score > 0){
@@ -266,7 +269,7 @@ public class GameBoard {
 			}
 		}
 		
-		if(tiles.get(pos4).getText().equals("X")){
+		if(tiles.get(pos4).getText().equals(aiChar)){
 			if(score > 0){
 				score *= 10;
 			} else if(score < 0){
@@ -274,7 +277,7 @@ public class GameBoard {
 			} else if(score == 0){
 				score = 1;
 			} 
-		} else if (tiles.get(pos4).getText().equals("O")){
+		} else if (tiles.get(pos4).getText().equals(oppChar)){
 			if(score < 0){
 				score *= 10;
 			} else if(score > 0){
@@ -284,7 +287,7 @@ public class GameBoard {
 			}
 		}
 		
-		if(tiles.get(pos5).getText().equals("X")){
+		if(tiles.get(pos5).getText().equals(aiChar)){
 			if(score > 0){
 				score *= 10;
 			} else if(score < 0){
@@ -292,7 +295,7 @@ public class GameBoard {
 			} else if(score == 0){
 				score = 1;
 			} 
-		} else if (tiles.get(pos5).getText().equals("O")){
+		} else if (tiles.get(pos5).getText().equals(oppChar)){
 			if(score < 0){
 				score *= 10;
 			} else if(score > 0){

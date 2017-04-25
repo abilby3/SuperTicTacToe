@@ -19,6 +19,8 @@ import javax.swing.DefaultComboBoxModel;
 /*Haseeb was here, testing github*/
 public class  LauncherGUI extends JFrame {
 	private JTextField txtAddress;
+	public static String aiChar;
+	public static String oppChar;
 
 	public LauncherGUI()
 	{
@@ -77,6 +79,8 @@ public class  LauncherGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
 				    public void run() {
+				    	aiChar = "X";
+				    	oppChar = "O";
 				         new GameGUI("Player vs AI", comboBox.getSelectedItem().toString());
 				    }
 				});
@@ -93,15 +97,23 @@ public class  LauncherGUI extends JFrame {
 				txtAddress.setVisible(true);
 				lblOpponents.setVisible(true);
 				btnConnect.setVisible(true);
+				
+				boolean playFirst = true;
+				  if(playFirst){
+				  	aiChar = "O";
+				  	oppChar ="X";
+				  }else{
+				  	aiChar = "X";
+				  	oppChar ="O";
+				  }
+				
+				new GameGUI("AI vs AI", comboBox.getSelectedItem().toString());
+				
+				
 			}
 		});
 		btnAI.setBounds(89, 143, 104, 39);
 		getContentPane().add(btnAI);
-		
-
-		
-
-		 
 		
 	}
 }
