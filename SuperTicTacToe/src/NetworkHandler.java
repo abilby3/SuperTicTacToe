@@ -203,7 +203,12 @@ public class NetworkHandler implements Runnable {
 		{
 			
 			try {
-				 
+				try {
+					Thread.sleep(4000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				dos.writeInt(d);
 				dos.flush();
 			} catch (IOException e1) {
@@ -216,7 +221,7 @@ public class NetworkHandler implements Runnable {
 		{ 
 			try {
 				try {
-					Thread.sleep(3000);
+					Thread.sleep(1500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
