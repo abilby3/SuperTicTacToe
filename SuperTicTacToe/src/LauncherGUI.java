@@ -59,6 +59,17 @@ public class  LauncherGUI extends JFrame {
 				         GameGUI gameGui = new GameGUI("AI vs AI", comboBox.getSelectedItem().toString());
 				         GameFacade gameFacade = new GameFacade(gameGui, networkHandler);
 				         networkHandler.setGameFacade(gameFacade);
+				         
+							boolean playFirst = false;
+							  if(playFirst){
+							  	aiChar = "O";
+							  	oppChar ="X";
+							  }else{
+							  	aiChar = "X";
+							  	oppChar ="O";
+							  }
+							
+							//new GameGUI("AI vs AI", comboBox.getSelectedItem().toString());
 				         t.start();
 				    }
 				});
@@ -81,6 +92,8 @@ public class  LauncherGUI extends JFrame {
 				    public void run() {
 				    	aiChar = "X";
 				    	oppChar = "O";
+				    	
+				    	
 				         new GameGUI("Player vs AI", comboBox.getSelectedItem().toString());
 				    }
 				});
@@ -97,19 +110,7 @@ public class  LauncherGUI extends JFrame {
 				txtAddress.setVisible(true);
 				lblOpponents.setVisible(true);
 				btnConnect.setVisible(true);
-				
-				boolean playFirst = false;
-				  if(playFirst){
-				  	aiChar = "O";
-				  	oppChar ="X";
-				  }else{
-				  	aiChar = "X";
-				  	oppChar ="O";
-				  }
-				
-				new GameGUI("AI vs AI", comboBox.getSelectedItem().toString());
-				
-				
+			
 			}
 		});
 		btnAI.setBounds(89, 143, 104, 39);

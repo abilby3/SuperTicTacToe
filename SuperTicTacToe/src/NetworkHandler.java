@@ -130,14 +130,15 @@ public class NetworkHandler implements Runnable {
 				
 				
 				hasDice = true; 
+				return;
 			}
 			
-			if(gameFacade.localTurn() == false && unableToCommunicate == false)
+			if(unableToCommunicate == false && dis != null)
 			{
 				 try {
 					 
 					int move = dis.readInt();
-					System.out.println("Dice:" + move);
+					System.out.println("Move:" + move);
 					 
 					
 					//Test if within range
@@ -163,7 +164,7 @@ public class NetworkHandler implements Runnable {
 			{
 				 
 				update();
-				if(this.gameFacade.localTurn() == false && !accepted)
+				if(!accepted)
 				{
 					listenForRequest();
 				}
