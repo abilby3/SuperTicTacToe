@@ -119,12 +119,15 @@ public class NetworkHandler implements Runnable {
 						{
 						   localMove(gameFacade.getMove());
 						   System.out.println("I won the dice roll!");
-						   
+							gameFacade.setLocalFirst(true);
+							gameFacade.setLocalTurn(true);
 						}
 						else
 						{
 							System.out.println("I lost the dice roll!");
 							gameFacade.setTurn();
+							gameFacade.setLocalFirst(false);
+							gameFacade.setLocalTurn(false);
 						}
 						
 						//Test if within range
@@ -141,7 +144,7 @@ public class NetworkHandler implements Runnable {
 				return;
 			}
 			
-			if(unableToCommunicate == false && dis != null)
+			if(unableToCommunicate == false && dis != null && gameFacade.getLocalTurn() == false)
 			{
 				 try {
 					 
