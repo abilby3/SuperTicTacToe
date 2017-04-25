@@ -80,8 +80,6 @@ public class  LauncherGUI extends JFrame {
 		
 		btnPlayer.setBounds(89, 74, 104, 39);
 		getContentPane().add(btnPlayer);
-		System.out("hello");
-		the others;
 		JButton btnAI = new JButton("AI vs AI");
 		btnAI.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
