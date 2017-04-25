@@ -3,8 +3,7 @@ public class GameFacade {
 	private GameGUI gameGui;
 	private GameBoard gameBoard;
 	private NetworkHandler networkHandler;
-    public String condition; 
-	
+    public String condition;
 	
 	public GameFacade(GameGUI gameGUI, GameBoard gameBoard, NetworkHandler networkHandler)
 	{
