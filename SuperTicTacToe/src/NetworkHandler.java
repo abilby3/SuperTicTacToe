@@ -213,12 +213,14 @@ public class NetworkHandler implements Runnable {
 		public void localMove(int m)
 		{ 
 			try {
+				
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
 				dos.writeInt(m);
 				dos.flush();
 			} catch (IOException e1) {

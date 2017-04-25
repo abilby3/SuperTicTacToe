@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;
@@ -28,10 +29,15 @@ public class GameGUI extends JFrame {
 			if(AI_Difficulty.equals("Hard"))
 				ai = new FastHardAI();
 			else if(AI_Difficulty.equals("Easy"))
-				ai = new EasyAi();
+				//ai = new EasyAi();
+				ai = new FasterDeeperBronchoerAI();
 			
 			if(type.equals("AI vs AI")){
-				ai = new FastHardAI();
+				if(AI_Difficulty.equals("Hard"))
+					ai = new FastHardAI();
+				else if(AI_Difficulty.equals("Easy"))
+					//ai = new EasyAi();
+					ai = new EasyAi();
 			}
 			gameBoard = new GameBoard(); 
 			
@@ -47,7 +53,8 @@ public class GameGUI extends JFrame {
 			//Create 5x5 Grid
 			for(int i = 0; i < 25; i++)
 			{
-				JButton newButton = new JButton(); 
+				JButton newButton = new JButton();
+				newButton.setFont(new Font("Arial", Font.PLAIN, 72));
 				//Logic for player vs AI
 				newButton.addActionListener(new ActionListener() {
 					
