@@ -5,12 +5,12 @@ public class GameFacade {
 	private NetworkHandler networkHandler;
     public String condition;
 	
-	public GameFacade(GameGUI gameGUI, GameBoard gameBoard, NetworkHandler networkHandler)
+	public GameFacade(GameGUI gameGUI,  NetworkHandler networkHandler)
 	{
 	 
 		this.gameGui = gameGUI;
 		this.networkHandler = networkHandler;
-	    this.gameBoard = gameBoard; 
+	   
 		
 		
 		
@@ -21,6 +21,12 @@ public class GameFacade {
     	networkHandler.localMove(m);
     } 
 	
+    public int getMove()
+    {
+    	return gameGui.getMove(); 
+   
+    }
+    
 	public boolean localTurn()
 	{
 		if(GameGUI.turn == 0)
@@ -34,7 +40,9 @@ public class GameFacade {
 	
 	public void recieveMove(int move)
 	{
-		this.gameBoard.placeMove(move, GameGUI.turn);
+		gameGui.enemyeMove(move); 
+		sendMove(gameGui.getMove());
+		
 	}
 	
 }

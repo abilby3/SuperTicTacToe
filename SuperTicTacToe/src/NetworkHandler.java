@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 public class NetworkHandler implements Runnable {
  
@@ -19,12 +20,16 @@ public class NetworkHandler implements Runnable {
 		private boolean unableToCommunicate;
 		private GameFacade gameFacade; 
 		private int errors; 
-		
+		private Random random;
+		private int roll; 
+		private boolean hasDice = false; 
 		
 		public NetworkHandler(int port, String ip)
 		{
 			 this.port = port;
 			 this.ip = ip;
+			 random = new Random();
+			 this.roll = random.nextInt(100);
 			 
 		    if(!connect())
 		    {
@@ -45,7 +50,8 @@ public class NetworkHandler implements Runnable {
 				socket = serverSocket.accept();
 				dos = new DataOutputStream(socket.getOutputStream());
 				dis = new DataInputStream(socket.getInputStream());
-				accepted = true;	
+				accepted = true;
+				sendDiceRoll(roll);
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -73,6 +79,7 @@ public class NetworkHandler implements Runnable {
 				dos = new DataOutputStream(socket.getOutputStream());
 				dis = new DataInputStream(socket.getInputStream());
 				accepted = true;
+				sendDiceRoll(roll);
 			} catch (IOException e) {
 				System.out.println("Unable to connect to the address: " + ip + ":" + port + " | Starting a server");
 				return false;
@@ -90,10 +97,51 @@ public class NetworkHandler implements Runnable {
 				
 			}
 			
+			if(hasDice == false && dis != null)
+			{
+				
+				//test if d100
+				
+				
+				
+				 try {
+					    System.out.println("We have dice!");
+						int move = dis.readInt();
+						System.out.println("Dice:" + move);
+						if(move < 0 || move > 100)
+						{
+							gameFacade.condition = "win";
+							
+						}
+						
+						if(move > roll)
+						{
+						   localMove(gameFacade.getMove());
+						} 
+						
+						//Test if within range
+						
+						gameFacade.recieveMove(move);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+				
+				
+				
+				hasDice = true; 
+			}
+			
 			if(gameFacade.localTurn() == false && unableToCommunicate == false)
 			{
 				 try {
+					 
 					int move = dis.readInt();
+					System.out.println("Dice:" + move);
+					 
+					
+					//Test if within range
+					
 					gameFacade.recieveMove(move);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -113,20 +161,34 @@ public class NetworkHandler implements Runnable {
 			
 			while(true)
 			{
+				 
 				update();
 				if(this.gameFacade.localTurn() == false && !accepted)
 				{
 					listenForRequest();
 				}
-			
+			 
 				
 			}
 			
 		}
 
-
-		public void localMove(int m)
+		
+		public void sendDiceRoll(int d)
 		{
+			
+			try {
+				 
+				dos.writeInt(d);
+				dos.flush();
+			} catch (IOException e1) {
+				errors++;
+				e1.printStackTrace();
+			}
+		}
+		
+		public void localMove(int m)
+		{ 
 			try {
 				dos.writeInt(m);
 				dos.flush();
