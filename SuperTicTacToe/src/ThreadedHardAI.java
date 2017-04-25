@@ -1,7 +1,5 @@
-//import java.util.Random;
 
-public class HardAi extends AI {
-
+public class ThreadedHardAI extends AI {
 	//private Random rand = new Random();
 	private final static int MAX_DEPTH = 3;
 	private static int counter = 0;
