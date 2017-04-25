@@ -174,6 +174,9 @@ public class NetworkHandler implements Runnable {
 			
 		}
 
+		public void sendPlayer(){
+			
+		}
 		
 		public void sendDiceRoll(int d)
 		{
