@@ -14,7 +14,7 @@ public class FastHardAI extends AI {
 		populateTree(rootNode, turn, depth);
 		Long time2 = System.currentTimeMillis();
 		
-		System.out.println("Populate time: " + (time2-time));
+		//System.out.println("Populate time: " + (time2-time));
 		//System.out.println(counter);
 		counter = 0;
 		
@@ -22,7 +22,7 @@ public class FastHardAI extends AI {
 		Node bestNode = minimaxStart(rootNode, 3,true);
 		Long time4 = System.currentTimeMillis();
 		
-		System.out.println("Read time: " + (time4-time3));
+		//System.out.println("Read time: " + (time4-time3));
 		//System.out.println(counter);
 		counter = 0;
 		int move = bestNode.getGameBoard().getLastMove();
