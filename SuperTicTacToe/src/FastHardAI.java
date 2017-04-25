@@ -20,7 +20,7 @@ public class FastHardAI extends AI {
 		counter = 0;
 		
 		Long time3 = System.currentTimeMillis();
-		Node bestNode = minimaxStart(rootNode, 4,true, turn);
+		Node bestNode = minimaxStart(rootNode, 25,true, turn);
 		Long time4 = System.currentTimeMillis();
 		
 		System.out.println("Pop: " + (time4-time3));

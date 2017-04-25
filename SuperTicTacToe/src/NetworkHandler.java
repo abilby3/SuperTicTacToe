@@ -26,18 +26,6 @@ public class NetworkHandler implements Runnable {
 			 this.gameFacade = gameFacade;
 		    
 		}
-		
-		public int getMove()
-		{
-			return 0;
-			
-		}
-		
-		public void sendMove()
-		{
-			
-			
-		}
 
 		private void listenForRequest()
 		{
@@ -123,5 +111,15 @@ public class NetworkHandler implements Runnable {
 			
 		}
 
-		 
+
+		public void localMove(int m)
+		{
+			try {
+				dos.writeInt(m);
+				dos.flush();
+			} catch (IOException e1) {
+				errors++;
+				e1.printStackTrace();
+			}
+		} 
 }

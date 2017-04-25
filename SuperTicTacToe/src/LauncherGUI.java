@@ -5,9 +5,12 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
@@ -22,7 +25,6 @@ public class  LauncherGUI extends JFrame {
 		getContentPane().setLayout(null);
 		setSize(350, 504);
 		setVisible(true);
-
 		txtAddress = new JTextField();
 		txtAddress.setBounds(89, 226, 104, 20);
 		getContentPane().add(txtAddress);
@@ -78,7 +80,6 @@ public class  LauncherGUI extends JFrame {
 		
 		btnPlayer.setBounds(89, 74, 104, 39);
 		getContentPane().add(btnPlayer);
-		
 		JButton btnAI = new JButton("AI vs AI");
 		btnAI.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

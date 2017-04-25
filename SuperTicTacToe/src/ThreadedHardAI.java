@@ -1,36 +1,92 @@
 
 public class ThreadedHardAI extends AI {
 	//private Random rand = new Random();
-	private final static int MAX_DEPTH = 3;
+	private final static int MAX_DEPTH = 2;
 	private static int counter = 0;
-
+	private static int threadsDone = 0;
+	private static int threadsLaunched = 0;
 	@Override
 	public int makeMove(GameBoard gameBoard, int turn) {
 		
 		//generate tree based on gameBoard
 		Node rootNode = new Node(gameBoard);
 		int depth = 0;
-		populateTree(rootNode, turn, depth);
+		startPopulateTree(rootNode, turn, depth, Thread.currentThread());	
+		try {
+			Thread.currentThread().wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		while(threadsLaunched != threadsDone){
+			System.out.println("i am looping");
+/*			System.out.println("Launched threads" + threadsLaunched);
+			System.out.println("Threads done" + threadsDone);
+			System.out.println("");*/
+			
+		}
+		
 		System.out.println(counter);
 		counter = 0;
-		
+
 		
 		Node bestNode = minimaxStart(rootNode, 3,true);
-		
-		System.out.println(counter);
+		 
 		counter = 0;
 		int move = bestNode.getGameBoard().getLastMove();
-		bestNode.getGameBoard().printBoard();
+		//bestNode.getGameBoard().printBoard();
 		return move;
+
+	}
+	
+	public void startPopulateTree(Node startNode, final int turn, final int depth, final Thread masterThread)
+	{
+		threadsLaunched =0;
+		threadsDone =0;
+		GameBoard gameBoard = startNode.getGameBoard();
+		//Add rootNode children
+		for(int i = 0; i < gameBoard.getTiles().size(); i++){
+			if(gameBoard.getTiles().get(i).getText().equals(""))
+			{
+				GameBoard newGameBoard = gameBoard.clone();
+				newGameBoard.placeMove(i, turn);
+				startNode.getChildren().add(new Node(newGameBoard));
+				threadsLaunched++;
+			}
+		}
+
+		for(final Node child : startNode.getChildren())
+		{	
+			//System.out.println(child.hashCode());
+			Thread k = new Thread(new Runnable(){
+				@Override
+				public void run() { 
+					//System.out.println("In thread");
+					populateTree(child, turn, depth);
+				//	System.out.println("Finished");
+					//System.out.println("In thread");
+					incrementCounter(masterThread);
+				}
+			});
+			k.start();
+		}
+	}
+	
+	public static synchronized void incrementCounter(Thread masterThread){
+		threadsDone++;
+		if(threadsDone == threadsLaunched)
+			//masterThread.start();
+			masterThread.notify();
 	}
 	
 	public void populateTree(Node node, int turn, int depth){
 		GameBoard gameBoard = node.getGameBoard();
 		counter++;
-		 
+		//System.out.println(depth);
 		//Check Base Case
 		if(depth == MAX_DEPTH)
 		{ 
+		//	System.out.println("returning");
 			return;
 		}
 		else if(gameBoard.getWinner().equals("Draw") || gameBoard.getWinner().equals("X") || gameBoard.getWinner().equals("O"))

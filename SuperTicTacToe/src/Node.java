@@ -38,6 +38,17 @@ public class Node {
 		return newNode;
 	}
 	
+	public void copy(Node node){
+		this.gameBoard = gameBoard.clone();
+		//Node newNode = new Node(gameBoard);
+		//newNode.setChildren(this.children); Could be an issue
+		setChildren(node.getChildren());
+		//newNode.setScore(score);
+		setScore(node.getScore());
+		
+		//return newNode;
+	}
+	
 	public void setScore(int score){
 		this.score = score;
 	}
