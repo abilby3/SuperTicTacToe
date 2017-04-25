@@ -102,15 +102,23 @@ public class  LauncherGUI extends JFrame {
 				txtAddress.setVisible(true);
 				lblOpponents.setVisible(true);
 				btnConnect.setVisible(true);
+				
+				boolean playFirst = true;
+				  if(playFirst){
+				  	aiChar = "O";
+				  	oppChar ="X";
+				  }else{
+				  	aiChar = "X";
+				  	oppChar ="O";
+				  }
+				
+				new GameGUI("AI vs AI", comboBox.getSelectedItem().toString());
+				
+				
 			}
 		});
 		btnAI.setBounds(89, 143, 104, 39);
 		getContentPane().add(btnAI);
-		
-
-		
-
-		 
 		
 	}
 }

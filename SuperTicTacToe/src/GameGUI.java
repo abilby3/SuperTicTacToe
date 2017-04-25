@@ -17,17 +17,22 @@ public class GameGUI extends JFrame {
 
 		public static int turn = 0;
 
-		private GameBoard gameBoard;  
+		private GameBoard gameBoard;   
 		private AI ai; 
 		private int MATRIX = 5;
 		
-		GameGUI(String gameType, String AI_Difficulty)
+		GameGUI(final String gameType, String AI_Difficulty)
 		{
+			final String type = gameType;
 			//initialize field variables
 			if(AI_Difficulty.equals("Hard"))
 				ai = new FastHardAI();
 			else if(AI_Difficulty.equals("Easy"))
 				ai = new EasyAi();
+			
+			if(type.equals("AI vs AI")){
+				ai = new FastHardAI();
+			}
 			gameBoard = new GameBoard(); 
 			
 			//Configure GUI
@@ -51,7 +56,7 @@ public class GameGUI extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						
 						JButton btn = (JButton)e.getSource();
-						if(btn.isEnabled())
+						if(btn.isEnabled() )
 						{				
 							gameBoard.placeMove(btn, turn);
 							turn++; 
@@ -129,7 +134,6 @@ public class GameGUI extends JFrame {
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 			);
 			panel_1.setLayout(gl_panel_1);
- 
 		}
 		
 		
@@ -164,6 +168,7 @@ public class GameGUI extends JFrame {
 		
 		public int getMove(){
 			int move = ai.makeMove(gameBoard, turn);
+			gameBoard.placeMove(move, turn);
 			gameOver(getWinner());
 			turn++;
 			return 0;
