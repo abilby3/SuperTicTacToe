@@ -106,22 +106,22 @@ public class NetworkHandler implements Runnable {
 				
 				 try {
 					    System.out.println("We have dice!");
-						int move = dis.readInt();
-						System.out.println("Dice:" + move);
-						if(move < 0 || move > 100)
+						int dice = dis.readInt();
+						System.out.println("Dice:" + dice);
+						if(dice < 0 || dice > 100)
 						{
 							gameFacade.condition = "win";
 							
 						}
 						
-						if(move > roll)
+						if(dice < roll)
 						{
 						   localMove(gameFacade.getMove());
 						} 
 						
 						//Test if within range
 						
-						gameFacade.recieveMove(move);
+						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

@@ -4,6 +4,7 @@ public class GameFacade {
 	private GameBoard gameBoard;
 	private NetworkHandler networkHandler;
     public String condition;
+    private boolean localFirst;
 	
 	public GameFacade(GameGUI gameGUI,  NetworkHandler networkHandler)
 	{
@@ -27,21 +28,14 @@ public class GameFacade {
    
     }
     
-	public boolean localTurn()
-	{
-		if(GameGUI.turn == 0)
-		{
-			return true; 
-		}
-		
-		return false; 
-	}
 	
 	
 	public void recieveMove(int move)
 	{
 		gameGui.enemyeMove(move); 
+		GameGUI.turn++;
 		sendMove(gameGui.getMove());
+		
 		
 	}
 	
