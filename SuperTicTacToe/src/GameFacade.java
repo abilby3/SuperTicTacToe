@@ -5,7 +5,7 @@ public class GameFacade {
 	private NetworkHandler networkHandler;
     public String condition;
     private boolean localFirst;
-	
+	public static boolean gameOver;
 	public GameFacade(GameGUI gameGUI,  NetworkHandler networkHandler)
 	{
 	 
@@ -29,7 +29,11 @@ public class GameFacade {
     }
     
 	
-	
+	public void setTurn()
+	{
+		GameGUI.turn++;
+	}
+    
 	public void recieveMove(int move)
 	{
 		gameGui.enemyeMove(move); 

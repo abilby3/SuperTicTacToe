@@ -119,10 +119,12 @@ public class NetworkHandler implements Runnable {
 						{
 						   localMove(gameFacade.getMove());
 						   System.out.println("I won the dice roll!");
+						   
 						}
 						else
 						{
-							System.out.println("I won the dice roll!");
+							System.out.println("I lost the dice roll!");
+							gameFacade.setTurn();
 						}
 						
 						//Test if within range
@@ -168,7 +170,11 @@ public class NetworkHandler implements Runnable {
 			
 			while(true)
 			{
-				 
+				if(GameFacade.gameOver)
+				{
+					break;
+				}
+				
 				update();
 				if(!accepted)
 				{

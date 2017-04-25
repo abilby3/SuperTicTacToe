@@ -157,7 +157,8 @@ public class GameGUI extends JFrame {
 				this.setTitle("Super TIC TAC TOE: Draw Game Over!!!");
 			else
 				this.setTitle("Super TIC TAC TOE: The winner is " + winCondition +  "!!!!");
-			
+			//Stop network handler
+			GameFacade.gameOver = true;
 		}
 		
 		public void enemyeMove(int move){
@@ -171,7 +172,7 @@ public class GameGUI extends JFrame {
 			gameBoard.placeMove(move, turn);
 			gameOver(getWinner());
 			turn++;
-			return 0;
+			return move;
 		}
 		
 		public void newGame(){
