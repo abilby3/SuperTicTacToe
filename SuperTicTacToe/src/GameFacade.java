@@ -4,7 +4,7 @@ public class GameFacade {
 	private GameBoard gameBoard;
 	private NetworkHandler networkHandler;
     public String condition; 
-	public String test;
+	
 	
 	public GameFacade(GameGUI gameGUI, GameBoard gameBoard, NetworkHandler networkHandler)
 	{
