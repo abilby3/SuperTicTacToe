@@ -125,7 +125,7 @@ public class NetworkHandler implements Runnable {
 						else
 						{
 							System.out.println("I lost the dice roll!");
-							gameFacade.setTurn();
+							//gameFacade.setTurn();
 							gameFacade.setLocalFirst(false);
 							gameFacade.setLocalTurn(false);
 						}
@@ -144,7 +144,7 @@ public class NetworkHandler implements Runnable {
 				return;
 			}
 			
-			if(unableToCommunicate == false && dis != null && gameFacade.getLocalTurn() == false)
+			if(unableToCommunicate == false && dis != null )
 			{
 				 try {
 					 
