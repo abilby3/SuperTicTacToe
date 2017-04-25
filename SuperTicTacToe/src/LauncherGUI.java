@@ -103,7 +103,7 @@ public class  LauncherGUI extends JFrame {
 				lblOpponents.setVisible(true);
 				btnConnect.setVisible(true);
 				
-				boolean playFirst = true;
+				boolean playFirst = false;
 				  if(playFirst){
 				  	aiChar = "O";
 				  	oppChar ="X";
