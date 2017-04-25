@@ -6,6 +6,7 @@ public class GameFacade {
     public String condition;
     private boolean localFirst;
 	public static boolean gameOver;
+	public boolean localTurn;
 	public GameFacade(GameGUI gameGUI,  NetworkHandler networkHandler)
 	{
 	 
@@ -34,14 +35,29 @@ public class GameFacade {
 		GameGUI.turn++;
 		localFirst = false;
 	}
-    
+
+	public void setLocalFirst(boolean localFirst)
+	{
+		this.localFirst = localFirst;
+	}
+	
+	public void setLocalTurn(boolean localTurn)
+	{
+		this.localTurn = localTurn;
+	}
+
+	public boolean getLocalTurn()
+	{
+		return localTurn;
+	}
+	
 	public void recieveMove(int move)
 	{
 		gameGui.enemyeMove(move); 
 		GameGUI.turn++;
 		
 		sendMove(gameGui.getMove());
-		
+		setLocalTurn(true);
 		
 	}
 	
