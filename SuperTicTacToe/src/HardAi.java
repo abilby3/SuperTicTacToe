@@ -8,7 +8,7 @@ public class HardAi extends AI {
 
 	@Override
 	public int makeMove(GameBoard gameBoard, int turn) {
-		
+		/*
 		//generate tree based on gameBoard
 		Node rootNode = new Node(gameBoard);
 		int depth = 0;
@@ -23,6 +23,29 @@ public class HardAi extends AI {
 		counter = 0;
 		int move = bestNode.getGameBoard().getLastMove();
 		bestNode.getGameBoard().printBoard();
+		return move;
+		*/
+		
+		//generate tree based on gameBoard
+		Node rootNode = new Node(gameBoard);
+		int depth = 0;
+		Long time = System.currentTimeMillis();
+		populateTree(rootNode, turn, depth);
+		Long time2 = System.currentTimeMillis();
+		
+		System.out.println("Pop: " + (time2-time));
+		//System.out.println(counter);
+		counter = 0;
+		
+		Long time3 = System.currentTimeMillis();
+		Node bestNode = minimaxStart(rootNode, 4,true);
+		Long time4 = System.currentTimeMillis();
+		
+		System.out.println("Pop: " + (time4-time3));
+		//System.out.println(counter);
+		counter = 0;
+		int move = bestNode.getGameBoard().getLastMove();
+		//bestNode.getGameBoard().printBoard();
 		return move;
 	}
 	
