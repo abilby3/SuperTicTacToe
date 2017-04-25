@@ -8,19 +8,23 @@ public class GameFacade {
 	
 	public GameFacade(GameGUI gameGUI, GameBoard gameBoard, NetworkHandler networkHandler)
 	{
-		this.gameBoard = gameBoard;
+	 
 		this.gameGui = gameGUI;
 		this.networkHandler = networkHandler;
-		
+	    this.gameBoard = gameBoard; 
 		
 		
 		
 	}
   
-	 
+    public void sendMove(int m)
+    {
+    	networkHandler.localMove(m);
+    } 
+	
 	public boolean localTurn()
 	{
-		if(gameGui.turn == 0)
+		if(GameGUI.turn == 0)
 		{
 			return true; 
 		}
@@ -28,14 +32,10 @@ public class GameFacade {
 		return false; 
 	}
 	
-	public int localMove(int m)
-	{
-		return 0;
-	}
 	
 	public void recieveMove(int move)
 	{
-		
+		this.gameBoard.placeMove(move, GameGUI.turn);
 	}
 	
 }
