@@ -183,7 +183,11 @@ public class NetworkHandler implements Runnable {
 				{
 					listenForRequest();
 				}
-			 
+			
+				if(unableToCommunicate)
+				{
+					break;
+				}
 				
 			}
 			
