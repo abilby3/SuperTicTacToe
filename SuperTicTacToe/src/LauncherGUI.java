@@ -60,14 +60,7 @@ public class  LauncherGUI extends JFrame {
 				         GameFacade gameFacade = new GameFacade(gameGui, networkHandler);
 				         networkHandler.setGameFacade(gameFacade);
 				         
-							boolean playFirst = false;
-							  if(playFirst){
-							  	aiChar = "O";
-							  	oppChar ="X";
-							  }else{
-							  	aiChar = "X";
-							  	oppChar ="O";
-							  }
+							
 							
 							//new GameGUI("AI vs AI", comboBox.getSelectedItem().toString());
 				         t.start();
@@ -90,8 +83,8 @@ public class  LauncherGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
 				    public void run() {
-				    	aiChar = "X";
-				    	oppChar = "O";
+				    	aiChar = "O";
+				    	oppChar = "X";
 				    	
 				    	
 				         new GameGUI("Player vs AI", comboBox.getSelectedItem().toString());

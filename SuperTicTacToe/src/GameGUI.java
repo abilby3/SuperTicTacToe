@@ -148,9 +148,9 @@ public class GameGUI extends JFrame {
 			}
 		}
 		
-		public void gameOver(String winCondition){
+		public boolean gameOver(String winCondition){
 			if(winCondition.equals(""))
-				return;
+				return false;
 
 			gameBoard.disableGameBoard();
 			if(winCondition.equals("Draw"))
@@ -158,13 +158,17 @@ public class GameGUI extends JFrame {
 			else
 				this.setTitle("Super TIC TAC TOE: The winner is " + winCondition +  "!!!!");
 			//Stop network handler
+			
 			GameFacade.gameOver = true;
+			return true;
 		}
 		
 		public void enemyeMove(int move){
 			gameBoard.placeMove(move, turn);
-			gameOver(getWinner());
-			turn++;
+			if(!gameOver(getWinner())){
+				turn++;
+			}
+			//turn++;
 		}
 		
 		public int getMove(){

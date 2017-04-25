@@ -30,9 +30,9 @@ public class GameBoard {
 	public void placeMove(int moveIndex, int turn){
 		setLastMove(moveIndex);
 		if(turn % 2 == 0)
-			tiles.get(moveIndex).setText("O");
-		else
 			tiles.get(moveIndex).setText("X");
+		else
+			tiles.get(moveIndex).setText("O");
 		tiles.get(moveIndex).setEnabled(false);	
 	}
 	
@@ -40,9 +40,9 @@ public class GameBoard {
 		int index = tiles.indexOf(tile);
 		setLastMove(index);
 		if(turn % 2 == 0)
-			tiles.get(index).setText("O");
-		else
 			tiles.get(index).setText("X");
+		else
+			tiles.get(index).setText("O");
 		tiles.get(index).setEnabled(false);	
 	}
 	

@@ -39,6 +39,13 @@ public class GameFacade {
 	public void setLocalFirst(boolean localFirst)
 	{
 		this.localFirst = localFirst;
+		if(localFirst){
+			LauncherGUI.aiChar = "X";
+			LauncherGUI.oppChar ="O";
+		}else{
+			LauncherGUI.aiChar = "O";
+			LauncherGUI.oppChar ="X";
+		}
 	}
 	
 	public void setLocalTurn(boolean localTurn)
@@ -54,7 +61,7 @@ public class GameFacade {
 	public void recieveMove(int move)
 	{
 		gameGui.enemyeMove(move); 
-		GameGUI.turn++;
+		//GameGUI.turn++;
 		
 		sendMove(gameGui.getMove());
 		setLocalTurn(true);
