@@ -23,6 +23,7 @@ public class NetworkHandler implements Runnable {
 		private GameFacade gameFacade; 
 		private int errors; 
 		private Random random;
+		private int dice = 0;
 		private int roll; 
 		private boolean hasDice = false; 
 		private boolean rerolled = false;
@@ -32,8 +33,8 @@ public class NetworkHandler implements Runnable {
 			 this.port = port;
 			 this.ip = ip;
 			 random = new Random();
-			 this.roll = random.nextInt(100);
-			 
+			 //this.roll = random.nextInt(100);
+			 this.roll = 0;
 		    if(!connect())
 		    {
 		    	initializeServer();
@@ -54,7 +55,7 @@ public class NetworkHandler implements Runnable {
 				dos = new DataOutputStream(socket.getOutputStream());
 				dis = new DataInputStream(socket.getInputStream());
 				accepted = true;
-				sendDiceRoll(0);
+				sendDiceRoll(roll);
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -82,7 +83,7 @@ public class NetworkHandler implements Runnable {
 				dos = new DataOutputStream(socket.getOutputStream());
 				dis = new DataInputStream(socket.getInputStream());
 				accepted = true;
-				sendDiceRoll(0);
+				sendDiceRoll(roll);
 			} catch (IOException e) {
 				System.out.println("Unable to connect to the address: " + ip + ":" + port + " | Starting a server");
 				return false;
@@ -109,7 +110,11 @@ public class NetworkHandler implements Runnable {
 				
 				 try {
 					    System.out.println("We have dice!");
-						int dice = dis.readInt();
+					    
+					    if(!rerolled)
+					    	dice = dis.readInt();
+					    else
+					    	rerolled = false;
 						System.out.println("Dice:" + dice);
 					
 						if(dice < 0 || dice > 100)
@@ -128,11 +133,12 @@ public class NetworkHandler implements Runnable {
 						{
 							dice = -1;
 							rerolled = true;
-							while(dice == roll && dice != -1)
+							while(dice == roll || dice == -1)
 							{
 								roll = random.nextInt(100);
 								sendDiceRoll(roll);
 								dice = dis.readInt();
+								System.out.println("Rerolled Dice: " + dice);
 							}
 						}
 						else
@@ -154,8 +160,7 @@ public class NetworkHandler implements Runnable {
 				
 				if(!rerolled)
 					hasDice = true;
-				else 
-					rerolled = false;
+					
 				return;
 			}
 			
