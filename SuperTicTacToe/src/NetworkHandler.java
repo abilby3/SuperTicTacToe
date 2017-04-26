@@ -33,8 +33,8 @@ public class NetworkHandler implements Runnable {
 			 this.port = port;
 			 this.ip = ip;
 			 random = new Random();
-			 //this.roll = random.nextInt(100);
-			 this.roll = 0;
+			 this.roll = random.nextInt(100);
+			 //this.roll = 0;
 		    if(!connect())
 		    {
 		    	initializeServer();
