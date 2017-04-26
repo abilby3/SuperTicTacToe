@@ -11,6 +11,8 @@ public class NetworkHandler implements Runnable {
  
 		private int port = 9001;
 		private final String myIp = "localhost";
+		private int movesMade[] = new int[25];
+		private int moveCounter = 0;
 		private String ip = "localhost";
 		private Socket socket;
 		private DataOutputStream dos;
@@ -151,12 +153,21 @@ public class NetworkHandler implements Runnable {
 					 
 					int move = dis.readInt();
 					System.out.println("Move:" + move);
-					
+					for(int mc = 0; mc < moveCounter; mc++){
+						if(move == movesMade[mc]){
+							System.out.println("Move Recieved is illegal: " + move);
+							System.out.println("Win by DQ");
+							gameFacade.condition = "win";
+						}
+					}
+					movesMade[moveCounter] = move;
+					moveCounter++;
 					if(move > 24 || 0 > move){
 						System.out.println("Move Recieved is illegal: " + move);
 						System.out.println("Win by DQ");
 						gameFacade.condition = "win";
-					} else {
+					} 
+					else {
 						gameFacade.recieveMove(move);
 					}
 					
@@ -242,6 +253,8 @@ public class NetworkHandler implements Runnable {
 				
 				dos.writeInt(m);
 				dos.flush();
+				movesMade[moveCounter] = m;
+				moveCounter++;
 			} catch (IOException e1) {
 				errors++;
 				e1.printStackTrace();

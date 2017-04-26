@@ -1,6 +1,7 @@
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JTextField;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -22,7 +23,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class GameGUI extends JFrame {
 
 		public static int turn = 0;
-
+		private JTextField gameInfo;
 		private GameBoard gameBoard;   
 		private AI ai; 
 		private int MATRIX = 5;
@@ -41,8 +42,9 @@ public class GameGUI extends JFrame {
 				if(AI_Difficulty.equals("Hard"))
 					ai = new HardAi();
 				else if(AI_Difficulty.equals("Easy"))
-					//ai = new EasyAi();
 					ai = new EasyAi();
+				
+				
 			}
 			gameBoard = new GameBoard(); 
 			
@@ -55,11 +57,15 @@ public class GameGUI extends JFrame {
 			getContentPane().add(panel, BorderLayout.CENTER);
 			panel.setLayout(new GridLayout(0, 5, 0, 0));
 			
+			
 			//Create 5x5 Grid
 			for(int i = 0; i < 25; i++)
 			{
 				JButton newButton = new JButton();
 				newButton.setFont(new Font("Arial", Font.PLAIN, 72));
+				if(type.equals("AI vs AI")){
+					newButton.setEnabled(false);
+				}
 				//Logic for player vs AI
 				newButton.addActionListener(new ActionListener() {
 					
@@ -99,6 +105,11 @@ public class GameGUI extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					if(ai instanceof HardAi){
+						gameInfo.setText("Deep Broncho is playing as " + LauncherGUI.aiChar);
+					} else{
+						gameInfo.setText("AI is playing as " + LauncherGUI.aiChar);
+					}
 					newGame();
 				}
 			});
@@ -125,6 +136,23 @@ public class GameGUI extends JFrame {
 				}
 			});
 			
+			JPanel panelInfo = new JPanel();
+			panelInfo.setPreferredSize(new Dimension(200,100));
+			gameInfo = new JTextField();
+			
+				if(ai instanceof HardAi){
+					gameInfo.setText("Deep Broncho is playing as " + LauncherGUI.aiChar);
+				} else{
+					gameInfo.setText("AI is playing as " + LauncherGUI.aiChar);
+				}
+			
+			gameInfo.setSize(new Dimension(200,100));
+			gameInfo.setFont(new Font("Arial", Font.PLAIN, 26));
+			gameInfo.setEditable(false);
+			gameInfo.setFocusable(false);
+			getContentPane().add(panelInfo, "North");
+			panelInfo.add(gameInfo);
+			
 			
 			GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 			gl_panel_1.setHorizontalGroup(
@@ -132,20 +160,23 @@ public class GameGUI extends JFrame {
 					.addGroup(gl_panel_1.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+							
 							.addComponent(btnQuit, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnNewGame, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnNewGame, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))							
 						.addContainerGap(553, Short.MAX_VALUE))
 			);
 			gl_panel_1.setVerticalGroup(
 				gl_panel_1.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_panel_1.createSequentialGroup()
 						.addContainerGap()
+						
 						.addComponent(btnNewGame, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 						.addGap(12)
 						.addComponent(btnQuit, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 			);
 			panel_1.setLayout(gl_panel_1);
+			
 		}
 		
 		
@@ -155,18 +186,9 @@ public class GameGUI extends JFrame {
 			if(getWinner().equals(""))
 			{
 				
-				//Long timeStart = System.currentTimeMillis();
-				int move = ai.makeMove(gameBoard, turn);
-				//Long timeEnd = System.currentTimeMillis();
-				//Long timeTaken = timeEnd - timeStart;
-				//System.out.println("Time: " + timeTaken);
-				//try {
-				//	Thread.sleep(5000 - timeTaken);
-				//} catch (InterruptedException e) {
-				//	// TODO Auto-generated catch block
-				//	e.printStackTrace();
-				//}
 				
+				int move = ai.makeMove(gameBoard, turn);
+								
 				gameBoard.placeMove(move, turn);
 				turn++;
 			}
@@ -177,11 +199,20 @@ public class GameGUI extends JFrame {
 				return false;
 
 			gameBoard.disableGameBoard();
-			if(winCondition.equals("Draw"))
+			if(winCondition.equals("Draw")){
 				this.setTitle("Super TIC TAC TOE: Draw Game Over!!!");
-			else
+				gameInfo.setText("Draw Game!");
+			}
+			else{
 				this.setTitle("Super TIC TAC TOE: The winner is " + winCondition +  "!!!!");
+				if(winCondition.equalsIgnoreCase(LauncherGUI.aiChar) && ai instanceof HardAi){
+					gameInfo.setText("The winner is Deep Broncho!!!");
+				}else{
+					gameInfo.setText("The winner is "+ winCondition +  "!!!!");
+				}
+				
 			//Stop network handler
+			}
 			
 			GameFacade.gameOver = true;
 			return true;
@@ -196,13 +227,25 @@ public class GameGUI extends JFrame {
 		}
 		
 		public int getMove(){
+			
+			if(turn < 3){
+				//if(!LauncherGUI.aiChar.equals(null)){
+					if(ai instanceof HardAi){
+						gameInfo.setText("Deep Broncho is playing as " + LauncherGUI.aiChar);
+					} else{
+						gameInfo.setText("AI is playing as " + LauncherGUI.aiChar);
+					}
+				//}
+			}
+			
+			
 			Long timeStart = System.currentTimeMillis();
 			int move = ai.makeMove(gameBoard, turn);
 			Long timeEnd = System.currentTimeMillis();
 			Long timeTaken = timeEnd - timeStart;
 			System.out.println("Time: " + timeTaken);
 			try {
-				Thread.sleep(5000 - timeTaken);
+				Thread.sleep(4000 - timeTaken);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
