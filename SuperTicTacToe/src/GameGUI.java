@@ -30,7 +30,7 @@ public class GameGUI extends JFrame {
 				ai = new FastHardAI();
 			else if(AI_Difficulty.equals("Easy"))
 				//ai = new EasyAi();
-				ai = new FasterDeeperBronchoerAI();
+				ai = new EasyAi();
 			
 			if(type.equals("AI vs AI")){
 				if(AI_Difficulty.equals("Hard"))
