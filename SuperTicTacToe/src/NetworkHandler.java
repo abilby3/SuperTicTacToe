@@ -25,6 +25,7 @@ public class NetworkHandler implements Runnable {
 		private Random random;
 		private int roll; 
 		private boolean hasDice = false; 
+		private boolean rerolled = false;
 		
 		public NetworkHandler(int port, String ip)
 		{
@@ -126,6 +127,7 @@ public class NetworkHandler implements Runnable {
 						}else if(dice == roll)
 						{
 							dice = -1;
+							rerolled = true;
 							while(dice == roll && dice != -1)
 							{
 								roll = random.nextInt(100);
@@ -150,8 +152,10 @@ public class NetworkHandler implements Runnable {
 					} 
 				
 				
-				
-				hasDice = true; 
+				if(!rerolled)
+					hasDice = true;
+				else 
+					rerolled = false;
 				return;
 			}
 			
