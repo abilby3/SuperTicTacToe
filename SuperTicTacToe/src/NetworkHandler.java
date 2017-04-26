@@ -151,11 +151,16 @@ public class NetworkHandler implements Runnable {
 					 
 					int move = dis.readInt();
 					System.out.println("Move:" + move);
-					 
 					
-					//Test if within range
+					if(move > 24 || 0 > move){
+						System.out.println("Move Recieved is illegal: " + move);
+						System.out.println("Win by DQ");
+						gameFacade.condition = "win";
+					} else {
+						gameFacade.recieveMove(move);
+					}
 					
-					gameFacade.recieveMove(move);
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -188,6 +193,10 @@ public class NetworkHandler implements Runnable {
 			
 				if(unableToCommunicate)
 				{
+					break;
+				}
+				if(gameFacade.condition.equalsIgnoreCase("win")){
+					
 					break;
 				}
 				

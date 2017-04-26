@@ -3,7 +3,7 @@ public class GameFacade {
 	private GameGUI gameGui;
 	private GameBoard gameBoard;
 	private NetworkHandler networkHandler;
-    public String condition;
+    public String condition = "";
     private boolean localFirst;
 	public static boolean gameOver;
 	public boolean localTurn;
