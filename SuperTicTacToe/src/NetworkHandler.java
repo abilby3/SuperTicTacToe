@@ -53,7 +53,7 @@ public class NetworkHandler implements Runnable {
 				dos = new DataOutputStream(socket.getOutputStream());
 				dis = new DataInputStream(socket.getInputStream());
 				accepted = true;
-				sendDiceRoll(roll);
+				sendDiceRoll(0);
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -81,7 +81,7 @@ public class NetworkHandler implements Runnable {
 				dos = new DataOutputStream(socket.getOutputStream());
 				dis = new DataInputStream(socket.getInputStream());
 				accepted = true;
-				sendDiceRoll(roll);
+				sendDiceRoll(0);
 			} catch (IOException e) {
 				System.out.println("Unable to connect to the address: " + ip + ":" + port + " | Starting a server");
 				return false;
@@ -123,6 +123,15 @@ public class NetworkHandler implements Runnable {
 						   System.out.println("I won the dice roll!");
 							gameFacade.setLocalFirst(true);
 							gameFacade.setLocalTurn(true);
+						}else if(dice == roll)
+						{
+							dice = -1;
+							while(dice == roll && dice != -1)
+							{
+								roll = random.nextInt(100);
+								sendDiceRoll(roll);
+								dice = dis.readInt();
+							}
 						}
 						else
 						{
