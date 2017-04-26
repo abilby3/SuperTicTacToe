@@ -75,7 +75,7 @@ public class NetworkHandler implements Runnable {
 
 		private boolean connect() {
 			try {
-				socket = new Socket(InetAddress.getLocalHost(), port);
+				socket = new Socket(ip, port);
 				dos = new DataOutputStream(socket.getOutputStream());
 				dis = new DataInputStream(socket.getInputStream());
 				accepted = true;

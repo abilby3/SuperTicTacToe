@@ -51,7 +51,7 @@ public class  LauncherGUI extends JFrame {
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				final NetworkHandler networkHandler = new NetworkHandler(9001, lblOpponents.getText()); 
+				final NetworkHandler networkHandler = new NetworkHandler(9001, txtAddress.getText()); 
 				final Thread t = new Thread(networkHandler);
 				
 				SwingUtilities.invokeLater(new Runnable() {
