@@ -27,14 +27,14 @@ public class GameGUI extends JFrame {
 			final String type = gameType;
 			//initialize field variables
 			if(AI_Difficulty.equals("Hard"))
-				ai = new FastHardAI();
+				ai = new HardAi();
 			else if(AI_Difficulty.equals("Easy"))
 				//ai = new EasyAi();
 				ai = new EasyAi();
 			
 			if(type.equals("AI vs AI")){
 				if(AI_Difficulty.equals("Hard"))
-					ai = new FastHardAI();
+					ai = new HardAi();
 				else if(AI_Difficulty.equals("Easy"))
 					//ai = new EasyAi();
 					ai = new EasyAi();
