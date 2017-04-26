@@ -1,17 +1,22 @@
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JPanel;
+
 import java.awt.GridLayout;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class GameGUI extends JFrame {
@@ -149,7 +154,19 @@ public class GameGUI extends JFrame {
 		{
 			if(getWinner().equals(""))
 			{
+				
+				//Long timeStart = System.currentTimeMillis();
 				int move = ai.makeMove(gameBoard, turn);
+				//Long timeEnd = System.currentTimeMillis();
+				//Long timeTaken = timeEnd - timeStart;
+				//System.out.println("Time: " + timeTaken);
+				//try {
+				//	Thread.sleep(5000 - timeTaken);
+				//} catch (InterruptedException e) {
+				//	// TODO Auto-generated catch block
+				//	e.printStackTrace();
+				//}
+				
 				gameBoard.placeMove(move, turn);
 				turn++;
 			}
@@ -179,7 +196,19 @@ public class GameGUI extends JFrame {
 		}
 		
 		public int getMove(){
+			Long timeStart = System.currentTimeMillis();
 			int move = ai.makeMove(gameBoard, turn);
+			Long timeEnd = System.currentTimeMillis();
+			Long timeTaken = timeEnd - timeStart;
+			System.out.println("Time: " + timeTaken);
+			try {
+				Thread.sleep(5000 - timeTaken);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//int move = ai.makeMove(gameBoard, turn);
 			gameBoard.placeMove(move, turn);
 			gameOver(getWinner());
 			turn++;
