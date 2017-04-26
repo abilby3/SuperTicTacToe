@@ -45,7 +45,7 @@ public class GameGUI extends JFrame {
 			setSize(500, 700);
 			setTitle("Super TIC TAC TOE:");
 			setVisible(true);
-			 
+			setDefaultCloseOperation(EXIT_ON_CLOSE);
 			JPanel panel = new JPanel();
 			getContentPane().add(panel, BorderLayout.CENTER);
 			panel.setLayout(new GridLayout(0, 5, 0, 0));
